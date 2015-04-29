@@ -15,7 +15,7 @@ import java.util.Scanner;
  *
  * @author Ilkin Abdullayev
  */
-public class Main {
+public class MainFor {
 
     /**
      * @param args the command line arguments
@@ -30,20 +30,19 @@ public class Main {
         for (int i = 0; i < count; i++) {
             listAccount.add(scanner.nextDouble());
         }
-        /////////////////////////////////////////////////////////       
-        boolean loop = true;
-        while (loop) {
-            double a1 = Collections.min(listAccount);
-            listAccount.remove(a1);
-            double a2 = Collections.min(listAccount);
-            listAccount.remove(a2);
-            double result = (a1 + a2) * (100 - percent) / 100;
-            result = Double.parseDouble(String.format(Locale.US, "%.2f\n", result));            
-            listAccount.add(result);          
 
-            if (listAccount.size() == 1) {
-                loop = false;
-            }
+        Collections.sort(listAccount);
+        /////////////////////////////////////////////////////////
+        int listSize = listAccount.size();
+        for (int i = 0; i < listSize; i++) {
+            if(listSize==1)break;
+            double result = (listAccount.get(0) + listAccount.get(1)) * (100 - percent) / 100;          
+            result = Double.parseDouble(String.format(Locale.US, "%.2f\n", result));
+            listAccount.set(0, result);
+            listAccount.remove(1);
+            i=-1;
+            listSize=listAccount.size();
+            Collections.sort(listAccount);
         }
 
         System.out.printf(Locale.US, "%.2f\n", listAccount.get(0));
