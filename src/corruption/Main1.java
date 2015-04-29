@@ -15,7 +15,7 @@ import java.util.Scanner;
  *
  * @author Ilkin Abdullayev
  */
-public class Main {
+public class Main1 {
 
     /**
      * @param args the command line arguments
@@ -32,19 +32,17 @@ public class Main {
         }
 
         Collections.sort(listAccount);
-        /////////////////////////////////////////////////////////       
-        boolean loop = true;
-        while (loop) {
-            double result = (listAccount.get(0) + listAccount.get(1)) * (100 - percent) / 100;
+        /////////////////////////////////////////////////////////
+        int listSize = listAccount.size();
+        for (int i = 0; i < listSize; i++) {
+            if(listSize==1)break;
+            double result = (listAccount.get(0) + listAccount.get(1)) * (100 - percent) / 100;          
             result = Double.parseDouble(String.format(Locale.US, "%.2f\n", result));
             listAccount.set(0, result);
             listAccount.remove(1);
-
+            i=-1;
+            listSize=listAccount.size();
             Collections.sort(listAccount);
-
-            if (listAccount.size() == 1) {
-                loop=false;
-            }
         }
 
         System.out.printf(Locale.US, "%.2f\n", listAccount.get(0));
