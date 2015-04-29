@@ -5,7 +5,6 @@
  */
 package corruption;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,29 +28,24 @@ public class Main {
 
         List<Double> listAccount = new ArrayList<Double>();
         for (int i = 0; i < count; i++) {
-            listAccount.add((double) scanner.nextDouble());
+            listAccount.add(scanner.nextDouble());
         }
-        
+
         Collections.sort(listAccount);
         /////////////////////////////////////////////////////////
-        Main main=new Main();
-        main.rekur(listAccount, percent);
-    
-        System.out.printf(Locale.US, "%.2f\n",listAccount.get(0));
-    }
-
-    public void rekur(List<Double> listAccount, int percent) {
-        if (listAccount.size() == 1) {
-            return;
+        int listSize = listAccount.size();
+        for (int i = 0; i < listSize; i++) {
+            if(listSize==1)break;
+            double result = (listAccount.get(0) + listAccount.get(1)) * (100 - percent) / 100;          
+            result = Double.parseDouble(String.format(Locale.US, "%.2f\n", result));
+            listAccount.set(0, result);
+            listAccount.remove(1);
+            i=-1;
+            listSize=listAccount.size();
+            Collections.sort(listAccount);
         }
-        
-        double result = (listAccount.get(0) + listAccount.get(1)) * (100 - percent) / 100;
-        listAccount.set(0, result);
-        listAccount.remove(1);
 
-        Collections.sort(listAccount);
-
-        rekur(listAccount, percent);
+        System.out.printf(Locale.US, "%.2f\n", listAccount.get(0));
     }
 
 }
